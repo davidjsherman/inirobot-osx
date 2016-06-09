@@ -10,7 +10,7 @@ SCRIPT = asebascratch-none.perl
 PROFILE = Scratch2-ThymioII.platypus
 
 DASHEL = ~/src/xcode-dashel
-PORTLIST = $(DASHEL)/portlist
+PORTLIST = $(DASHEL)/Debug/portlist
 
 ASEBA = ~/work/xcode-aseba
 ASEBAHTTP = $(ASEBA)/switches/http/Debug/asebahttp
@@ -22,7 +22,10 @@ change = -change /usr/lib/libxml2.2.dylib @executable_path/../Frameworks/libxml2
 	 -change /usr/lib/liblzma.5.dylib @executable_path/../Frameworks/liblzma.5.dylib \
 	 -change /usr/lib/libiconv.2.dylib @executable_path/../Frameworks/libiconv.2.dylib
 
-all:	bundle
+all:
+	$(MAKE) bundle
+	$(MAKE) bundle BUNDLE=AsebaHTTP-Menu.app SCRIPT=asebahttp-menu.perl PROFILE=AsebaHTTP-Menu.platypus
+	$(MAKE) bundle BUNDLE=AsebaScratch-Menu.app SCRIPT=asebascratch-menu.perl PROFILE=AsebaScratch-Menu.platypus
 
 bundle:	app libs pgms
 
