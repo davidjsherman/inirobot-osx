@@ -17,12 +17,16 @@ ASEBAHTTP = $(ASEBA)/switches/http/Debug/asebahttp
 ASEBASCRATCH = $(ASEBA)/examples/clients/scratch/Debug/asebascratch
 PROGRAMS = $(PORTLIST) $(ASEBAHTTP) $(ASEBASCRATCH)
 
-LIBS = /usr/lib/libxml2.2.dylib /usr/lib/liblzma.5.dylib /usr/lib/libiconv.2.dylib
+SHLIBDASHEL = $(shell echo $(PROGRAMS) | fmt -w1 | xargs otool -L | grep -m1 libdashel | cut -f1 -d\ )
+
+LIBS = /usr/lib/libxml2.2.dylib /usr/lib/liblzma.5.dylib /usr/lib/libiconv.2.dylib $(SHLIBDASHEL)
 change = -change /usr/lib/libxml2.2.dylib @executable_path/../Frameworks/libxml2.2.dylib \
 	 -change /usr/lib/liblzma.5.dylib @executable_path/../Frameworks/liblzma.5.dylib \
-	 -change /usr/lib/libiconv.2.dylib @executable_path/../Frameworks/libiconv.2.dylib
+	 -change /usr/lib/libiconv.2.dylib @executable_path/../Frameworks/libiconv.2.dylib \
+	 $(if $(SHLIBDASHEL),-change $(SHLIBDASHEL) @executable_path/../Frameworks/libdashel.1.dylib)
 
 all:
+	echo SHLIBDASHEL $(SHLIBDASHEL) $(change)
 	$(MAKE) bundle
 	$(MAKE) bundle BUNDLE=AsebaHTTP-Menu.app SCRIPT=asebahttp-menu.perl PROFILE=AsebaHTTP-Menu.platypus
 	$(MAKE) bundle BUNDLE=AsebaScratch-Menu.app SCRIPT=asebascratch-menu.perl PROFILE=AsebaScratch-Menu.platypus
@@ -39,5 +43,6 @@ libs:	$(LIBS)
 
 pgms:	$(PROGRAMS)
 	install $^ "$(BUNDLE)"/Contents/MacOS/
+	install_name_tool $(change) "$(BUNDLE)"/Contents/MacOS/portlist
 	install_name_tool $(change) "$(BUNDLE)"/Contents/MacOS/asebahttp
 	install_name_tool $(change) "$(BUNDLE)"/Contents/MacOS/asebascratch
