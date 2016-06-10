@@ -40,6 +40,7 @@ app:	$(SCRIPT)
 libs:	$(LIBS)
 	mkdir -p "$(BUNDLE)"/Contents/Frameworks
 	install $^ "$(BUNDLE)"/Contents/Frameworks
+	$(if $(SHLIBDASHEL),install_name_tool -id @executable_path/../Frameworks/libdashel.1.dylib "$(BUNDLE)"/Contents/Frameworks/libdashel.1.dylib)
 
 pgms:	$(PROGRAMS)
 	install $^ "$(BUNDLE)"/Contents/MacOS/
