@@ -1,0 +1,3 @@
+[submodule "inirobot"]
+	path = inirobot
+	url = https://github.com/davidjsherman/inirobot-scratch-thymioII

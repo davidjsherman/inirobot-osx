@@ -12,15 +12,19 @@
 	<string>David James Sherman</string>
 	<key>BundledFiles</key>
 	<array>
-		<string>./Scratch2-ThymioII_template/Contents/Resources/thymio_motion.aesl</string>
-		<string>./Scratch2-ThymioII_template/Contents/Resources/Scratch</string>
+		<string>./inirobot/thymio_motion.aesl</string>
+		<string>./inirobot/Thymio-II.sb2</string>
+		<string>./inirobot/Thymio-II.sprite2</string>
+		<string>./inirobot/ext-basic-thymioII.json</string>
+		<string>./inirobot/ext-scratch-thymioII.json</string>
+		<string>./inirobot/fr-thymioII.po</string>
 	</array>
 	<key>Creator</key>
 	<string>Platypus-5.1</string>
 	<key>DeclareService</key>
 	<false/>
 	<key>Destination</key>
-	<string>/Users/sherman/Desktop/Application.app</string>
+	<string>./AsebaHTTP-Menu.app</string>
 	<key>DestinationOverride</key>
 	<false/>
 	<key>DevelopmentVersion</key>
@@ -32,7 +36,7 @@
 	<key>ExecutablePath</key>
 	<string>/usr/local/share/platypus/ScriptExec</string>
 	<key>IconPath</key>
-	<string>./Scratch2-ThymioII_template/Contents/Resources/appIcon.icns</string>
+	<string>./Resources/appIcon.icns</string>
 	<key>Identifier</key>
 	<string>fr.inria.inirobot.AsebaHTTP-Menu</string>
 	<key>Interpreter</key>
