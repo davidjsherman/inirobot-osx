@@ -74,3 +74,5 @@ $(SCRATCH_DMG):	$(SCRATCH_DIR)
 	rm -f $(temp_dmg)
 
 dmg:	$(SCRATCH_DMG)
+
+archive:	dmg
