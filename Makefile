@@ -21,7 +21,7 @@ ASEBASCRATCH = $(ASEBA)/examples/clients/scratch/Debug/asebascratch
 PROGRAMS = $(PORTLIST) $(ASEBAHTTP) $(ASEBASCRATCH)
 
 # library renaming
-SHLIBDASHEL = $(shell echo $(PROGRAMS) | fmt -w1 | xargs otool -L | grep -m1 libdashel | cut -f1 -d\ )
+SHLIBDASHEL = $(shell echo $(PROGRAMS) | fmt -w1 | xargs otool -L | grep libdashel | grep -m1 -v '[[:space:]]@' | cut -f1 -d\ )
 LIBS = /usr/lib/libxml2.2.dylib /usr/lib/liblzma.5.dylib /usr/lib/libiconv.2.dylib $(SHLIBDASHEL)
 change = -change /usr/lib/libxml2.2.dylib @executable_path/../Frameworks/libxml2.2.dylib \
 	 -change /usr/lib/liblzma.5.dylib @executable_path/../Frameworks/liblzma.5.dylib \
@@ -35,9 +35,14 @@ SCRATCH_VOL = Scratch2-ThymioII
 squashcopy := rsync -a -L --no-perms --chmod=go-w
 temp_dmg := $(shell mktemp -u ./temp.XXXXX).dmg
 
+# debugging
+PHONY: bundle
+bundle:
+	$(info $$PROGRAMS is [${PROGRAMS}])
+	$(info $$SHLIBDASHEL is [${SHLIBDASHEL}])
+
 # rules
 all:
-	echo SHLIBDASHEL $(SHLIBDASHEL) $(change)
 	$(MAKE) bundle
 	$(MAKE) bundle BUNDLE=AsebaHTTP-Menu.app SCRIPT=asebahttp-menu.perl PROFILE=AsebaHTTP-Menu.platypus
 	$(MAKE) bundle BUNDLE=AsebaScratch-Menu.app SCRIPT=asebascratch-menu.perl PROFILE=AsebaScratch-Menu.platypus
